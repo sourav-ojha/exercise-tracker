@@ -4,10 +4,8 @@
 const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://admin1:jbSejUiiMmHVl9xQ@cluster0.mbns1.mongodb.net/exercisetracker?retryWrites=true&w=majority&appName=Cluster0",
-      {}
-    );
+    if (!process.env.MONGO_URI) throw new Error("MONGO_URI not found");
+    await mongoose.connect(process.env.MONGO_URI, {});
     console.log("MongoDB connected");
   } catch (error) {
     console.log(error);
